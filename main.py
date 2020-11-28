@@ -14,9 +14,9 @@ def index():
 def tow_sum():
     a = request.args.get('a')
     b = request.args.get('b')
-    celery_app.send_task('tow-sum-task', [a, b])
+    celery_app.send_task('tow-sum-task', [int(a), int(b)])
     return jsonify({"stat": 0, "msg": 'send task successful'})
 
 
 if __name__ == '__main__':
-    app.run(port=8888)
+    app.run(host='0.0.0.0', port=8888)
