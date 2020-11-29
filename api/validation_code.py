@@ -2,17 +2,18 @@ from io import BytesIO
 
 from flask import session, make_response
 
-from main import app
+from . import api
 from utils.validation_code import create_validation_code
 
 
-@app.route("/validation-code", methods=['GET'])
+@api.route("/validation-code", methods=['GET'])
 def get_validation_code():
     """
     获取图片验证码接口
     :return:图片文件和验证码
     """
     code_img, code_str = create_validation_code()
+    print(code_str)
     session['validation_code'] = code_str
     buf = BytesIO()
     code_img.save(buf, 'JPEG', quality=50)
